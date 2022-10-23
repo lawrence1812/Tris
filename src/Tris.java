@@ -14,8 +14,8 @@ class Tris {
     public String trisToString() {
         String str = "";
         for(int i = 0; i < field.length; i++) {
-            for(int j  = 0; j < field[0].length; j++) {
-                str += singToChar(field[i][j]) + " ";
+            for(int j  = 0; j < field[i].length; j++) {
+                str += singToChar(field[j][i]) + " ";
             }
             str += "\n";
         }

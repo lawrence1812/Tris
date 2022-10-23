@@ -7,10 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainFrame extends JFrame implements ActionListener {
-
+    Main main = new Main();
     int width = 500;
     int height = 500;
-
+    Player currentPlayer;
 
     JButton[] jb = new JButton[9];
 
@@ -22,9 +22,9 @@ public class MainFrame extends JFrame implements ActionListener {
         setResizable(false);
         setBackground(Color.blue);
         setLayout(new BorderLayout());
-        setLocationRelativeTo(null); //per centrarlo nello schermo
+        setLocationRelativeTo(null); // per centrarlo nello schermo
+        setAlwaysOnTop(true);
     }
-
 
     public void createButton(JPanel panel) {
         for (int i = 0; i < 9; i++) {
@@ -41,12 +41,50 @@ public class MainFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        for (int i = 0; i < jb.length; i++) {
-            
+        for (int i = 0; i < 9; i++) {
+            if (e.getSource() == jb[i]) {
                 
-            
+                jb[i].setText(arrNumConv(i)[0] + ", " + arrNumConv(i)[1]);
+                currentPlayer.newMove(arrNumConv(i)[0], arrNumConv(i)[1]);
+            }
         }
+    }
 
+    public void updateField(Tris tris) {
+        int y;
+        int z;
+        for (int i = 0; i < jb.length; i++) {
+            y = arrNumConv(i)[0];
+            z = arrNumConv(i)[1];
+            if (tris.field[y][z] != tris.E) {
+                jb[i].setText(""+tris.singToChar(tris.field[y][z]));
+                //jb[i].setEnabled(false);
+            }
+        }
+    }
+
+    public void setCurrentPlayer(Player p) {
+        currentPlayer = p;
+    }
+
+    /**
+     * Converte il numero da 0-8
+     * int un array da usare per matrici 3x3
+     * Es 8 -> x = 2, y = 2
+     * 
+     * @param n int numero da cambiare
+     */
+    public int[] arrNumConv(int n) {
+        int x = 0;
+        int y = 0;
+        for (int i = 0; i < n; i++) {
+            x++;
+            if (x == 3) {
+                x = 0;
+                y++;
+            }
+        }
+        return new int[] { x, y };
     }
 
     public static void main(String[] args) {
