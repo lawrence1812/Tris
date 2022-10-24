@@ -11,8 +11,8 @@ class Main {
         MainFrame m = new MainFrame();
         JPanel panel = new JPanel(new GridLayout(tris.field.length, tris.field[0].length));
 
-        Player p1 = new Bot(tris, tris.X);
-        Player p2 = new Bot(tris, tris.O);
+        Player p1 = new Human(tris, tris.X);
+        Player p2 = new UI(tris, tris.O);
         Player p = p2;
         
         
@@ -43,16 +43,18 @@ class Main {
     } 
 
     public static void giocaMain(Player p, Tris tris)  {   
-        p.move();
-        int x = p.getX();
-        int y = p.getY();
-        int sign = p.getSign();
+        if(p.move()) {
+            int x = p.getX();
+            int y = p.getY();
+            int sign = p.getSign();
 
-        if (tris.isPlayable(x, y)) {
-            tris.play(x, y, sign);
-        } else {
-            //System.out.println("mossa invalida");
-            giocaMain(p,tris);
+            if (tris.isPlayable(x, y)) {
+                tris.play(x, y, sign);
+            } else {
+                //System.out.println("mossa invalida");
+                giocaMain(p,tris);
+            }
         }
+        
     }
 }

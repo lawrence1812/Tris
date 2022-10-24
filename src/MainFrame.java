@@ -59,6 +59,8 @@ public class MainFrame extends JFrame implements ActionListener {
             if (tris.field[y][z] != tris.E) {
                 jb[i].setText(""+tris.singToChar(tris.field[y][z]));
                 //jb[i].setEnabled(false);
+            } else {
+                jb[i].setText("");
             }
         }
     }
