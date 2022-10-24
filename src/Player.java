@@ -18,6 +18,7 @@ abstract class Player {
     public int getY() {
         return y;
     }
+    
 
     abstract public boolean move();
 
@@ -65,7 +66,6 @@ class Human extends Player {
 // si può sistemare con un ciclo che aspetta la risposta
 class UI extends Player {
     boolean ready = false;
-
     public UI(Tris tris, int sign) {
         this.tris = tris;
         this.sign = sign;
@@ -74,17 +74,22 @@ class UI extends Player {
     @Override
     public boolean move() {
         while (!ready) {
-            
-            System.out.println("ciclo");
+            try {
+                Thread.sleep(100);
+            } catch(InterruptedException e) {
+
+            }
             ready = false;
             return true;
         }
         return false;
     }
 
-    public void newMove(int x, int y) {
+    public void newMove(int newX, int newY) {
         ready = true;
-        x = this.x;
-        y = this.y;
+        x = newX;
+        y = newY;
+        System.out.println("hai cliccato: " + y + ", " + x);
+
     }
 }

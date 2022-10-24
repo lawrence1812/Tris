@@ -44,7 +44,7 @@ public class MainFrame extends JFrame implements ActionListener {
         for (int i = 0; i < 9; i++) {
             if (e.getSource() == jb[i]) {
                 
-                jb[i].setText(arrNumConv(i)[0] + ", " + arrNumConv(i)[1]);
+                //jb[i].setText(arrNumConv(i)[0] + ", " + arrNumConv(i)[1]);
                 currentPlayer.newMove(arrNumConv(i)[0], arrNumConv(i)[1]);
             }
         }
@@ -57,12 +57,18 @@ public class MainFrame extends JFrame implements ActionListener {
             y = arrNumConv(i)[0];
             z = arrNumConv(i)[1];
             if (tris.field[y][z] != tris.E) {
+                
+                if(tris.field[y][z] == -1) 
+                    jb[i].setForeground(Color.blue);
+                else 
+                    jb[i].setForeground(Color.red);
+                
                 jb[i].setText(""+tris.singToChar(tris.field[y][z]));
-                //jb[i].setEnabled(false);
+                if(tris.verifica() != tris.PARTITA_IN_CORSO) jb[i].setEnabled(false);
             } else {
                 jb[i].setText("");
             }
-        }
+        }       
     }
 
     public void setCurrentPlayer(Player p) {
